@@ -1,0 +1,26 @@
+
+
+{
+  "user": {
+    "uid": "abc123xyz",
+    "email": "user@example.com",
+    "emailVerified": false,
+    "displayName": null,
+    "photoURL": null,
+    "phoneNumber": null,
+    "providerData": [
+      {
+        "uid": "user@example.com",
+        "displayName": null,
+        "email": "user@example.com",
+        "photoURL": null,
+        "providerId": "password"
+      }
+    ],
+    "metadata": {
+      "creationTime": "2023-10-01T12:00:00Z",
+      "lastSignInTime": "2023-10-01T12:00:00Z"
+    }
+  },
+  "operationType": "signIn"
+}
