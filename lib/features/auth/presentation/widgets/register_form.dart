@@ -89,7 +89,9 @@ class _RegisterFormState extends State<RegisterForm> {
                         onPressed: () {
                           if (formKey.currentState!.validate()) {
                             context.read<AuthBloc>().add(RegitsterUserEvent(
+                                name: nameController.text,
                                 email: emailController.text,
+                                phone: phoneController.text,
                                 password: passwordController.text));
                           }
                         },

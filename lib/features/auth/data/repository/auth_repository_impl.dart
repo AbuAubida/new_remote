@@ -17,8 +17,9 @@ class AuthRepositoryImpl extends AuthRepository {
       {required String email, required String password}) async {
     if (await connection.getConnection()) {
       try {
-        final user = await remoteDataSource.loginUser(
-            email: email, password: password);
+        final user =
+            await remoteDataSource.loginUser(email: email, password: password);
+        
         return right(user);
       } on SerrverException {
         return left(SerrverFailure());
@@ -32,6 +33,10 @@ class AuthRepositoryImpl extends AuthRepository {
         return left(WeekPasswordFailure());
       } on RegisteredEmailException {
         return left(RegisteredEmailFailure());
+      } on UnHandledException {
+        return left(UnHandledFailure());
+      } on InValidCredentialException {
+        return left(InValidCredentialFailure());
       }
     } else {
       return left(OfflineFailure());
@@ -39,13 +44,16 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<Failure, UserEntity>> registerNewUser(
-      {required String email, required String password}) async {
+  Future<Either<Failure, Unit>> registerNewUser(
+      {required String name,
+      required String email,
+      required String phone,
+      required String password}) async {
     if (await connection.getConnection()) {
       try {
-        final user = await remoteDataSource.registerNewUser(
-            email: email, password: password);
-        return right(user);
+        await remoteDataSource.registerNewUser(
+            email: email, password: password, name: name, phone: phone);
+        return right(unit);
       } on SerrverException {
         return left(SerrverFailure());
       } on UserDisabledException {
@@ -58,6 +66,12 @@ class AuthRepositoryImpl extends AuthRepository {
         return left(WeekPasswordFailure());
       } on RegisteredEmailException {
         return left(RegisteredEmailFailure());
+      } on WrongPasswordException {
+        return left(WrongPasswordFailure());
+      } on UnRegisteredUserException {
+        return left(UnRegisteredUserFailure());
+      } on UnHandledException {
+        return left(UnRegisteredUserFailure());
       }
     } else {
       return left(OfflineFailure());

@@ -8,3 +8,8 @@ class WeekPasswordFailure extends Failure{}
 class UserDisabledFailure extends Failure {}
 class EmailPasswordDisbledFailure extends Failure {}
 class SerrverFailure extends Failure{}
+           
+ class WrongPasswordFailure extends Failure{}
+ class UnRegisteredUserFailure extends Failure{}
+ class UnHandledFailure extends Failure{}
+ class InValidCredentialFailure extends Failure{}

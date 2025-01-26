@@ -42,7 +42,7 @@ class _LoginFormState extends State<LoginForm> {
                 AuthTitle(title: "Login"),
                 DefaultTextField(
                   prefixIcon: Icons.email_outlined,
-                  controller: TextEditingController(),
+                  controller: emailController,
                   labelText: "Email",
                   isPassword: false,
                   keyboardType: TextInputType.emailAddress,
@@ -55,7 +55,7 @@ class _LoginFormState extends State<LoginForm> {
                     prefixIcon: Icons.lock,
                     // keyboardType: TextInputType.visiblePassword,
                     // suffixIcon: cubit.visibilityIcon,
-                    controller: TextEditingController(),
+                    controller: passwordController,
                     labelText: "Password",
                     isPassword: true),
                 const SizedBox(
@@ -66,6 +66,8 @@ class _LoginFormState extends State<LoginForm> {
                   builder: (context) => Defaultbutton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
+                        print(emailController.text);
+                        print(passwordController.text);
                         context.read<AuthBloc>().add(LoginUserEvent(
                             email: emailController.text,
                             password: passwordController.text));

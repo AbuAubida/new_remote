@@ -19,7 +19,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       if (event is RegitsterUserEvent) {
         emit(LoadingAuthState());
         final failOrSuccess =
-            await register(email: event.email, password: event.password);
+            await register(name: event.name,email: event.email,phone: event.phone, password: event.password);
               emit(loginRegisterFunc(failOrSuccess));
 
       } else if (event is LoginUserEvent) {

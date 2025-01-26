@@ -5,6 +5,7 @@ import 'package:chat_app/features/auth/domain/reopository/auth_repository.dart';
 import 'package:chat_app/features/auth/domain/usecases/login_usecase.dart';
 import 'package:chat_app/features/auth/domain/usecases/register_new_user_usecase.dart';
 import 'package:chat_app/features/auth/presentation/bussiness_logic/bloc/auth_bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get_it/get_it.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -24,8 +25,9 @@ Future<void> init() async {
       () => DeviceInternetConnectionImp(internet: sl()));
   // data sources
   sl.registerLazySingleton<RemoteDataSource>(
-      () => RemoteDataSourceImpl(auth: sl()));
+      () => RemoteDataSourceImpl(sl(), auth: sl()));
   // external packages
   sl.registerLazySingleton(() => InternetConnectionChecker.instance);
   sl.registerLazySingleton(() => FirebaseAuth.instance);
+  sl.registerLazySingleton(() => FirebaseFirestore.instance);
 }
